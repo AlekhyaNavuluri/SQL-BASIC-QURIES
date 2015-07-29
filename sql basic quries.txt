@@ -1,0 +1,70 @@
+--Request 1
+
+--List the last name, first name and employee number of all employees that have
+--a last name starting with M.
+
+--select Employee_No,First_Name,Last_Name from Employees where Last_Name like 'm%';
+--Request 2
+--List the department number, last name, first name and phone number of all
+--sales representatives who were hired on or after 24 Mar 1998 sorted in
+--ascending order of last name
+--select Department_No,Last_Name,First_Name,Phone_Number,Hire_Date, jobs.Job_Title from Employees, jobs where jobs.Job_Title = 'Sales Representative' and Hire_Date >= '1998-03-24' order by Last_Name;
+-- Request 3
+--List all the data for all jobs where the minimum salary is less than or equal to
+--4500 sorted in descending order of the minimum salary
+--select * from jobs where Min_Salary <= 4500 order by Min_Salary DESC;
+--Request 4
+--Which jobs are found in the Marketing and Accounting departments? 
+--select * from Departments where Department_Name IN ('Marketing', 'Accounting');
+--select Distinct Employees.Job_ID, Departments.Department_Name from Employees, Departments where Department_Name IN('Marketing', 'Accounting');
+
+--Request 5
+--List the department name, location, last name and salary of employees who
+--work in location 1700 sorted in ascending order of department name.
+--select Departments.Department_Name,Departments.Location_ID, Employees.Last_Name,Employees.Annual_Salary from Departments, Employees where Location_ID = 1700 order by Department_Name;
+
+
+
+--Request 6
+--List the last name and first name for all employees who were hired in the
+--months of June or August (for all years) sorted in ascending order of lastname;
+--select Last_Name,First_Name,Hire_date from Employees where  Datename(MM,Hire_Date) ='june' or Datename(MM,Hire_Date) ='august';
+--select Last_Name,First_Name,Hire_date from Employees where DATEPART(MM,Hire_Date)  IN(6,8) order by Last_Name;
+
+
+ --Request 7
+--Show the average salary for employees for one year (rounded to 2 decimal
+--places).
+--select cast(avg(Annual_salary) as decimal(8, 2))as oneyearsal from Employees;
+
+
+--Request 8
+--Show the total monthly salaries figure (0 decimal places) for all employees in
+--departments 80 and 60.
+--select Department_No, (CAST((Annual_salary / 12) as decimal(8, 0))) as monthlysal from Employees where department_No IN('80','60') order by monthlysal, department_No;
+
+
+--Request 9
+-- List the department number, department name and the number of
+--employees for each department that has less than 4 employees grouping
+--by department number and department name 
+--select Departments.Department_No, Departments.Department_Name, COUNT(Employees.Employee_No) as employeecount from Employees,Departments where Employees.Department_No = Departments.Department_No group by Departments.Department_No,
+--Departments.Department_Name having COUNT(Employees.Employee_No) < 4;
+
+
+--Request 10
+--List the department number, department name and the number of
+--employees for the department that has the lowest number of employees
+--using appropriate grouping.
+--select TOP 1 Departments.Department_No, Departments.Department_Name, COUNT(Employees.Employee_No) as employeecount
+-- from Employees,Departments where Employees.Department_No = Departments.Department_No group by Departments.Department_No,Departments.Department_Name order by employeecount;
+
+
+
+
+--Request 11 
+--List the department number and name for all departments where no sales
+--representatives work
+SELECT Departments.Department_No, Departments.Department_Name, count(Jobs.Job_Title)
+FROM            Departments CROSS JOIN
+                         Jobs group by Departments.Department_No  ;

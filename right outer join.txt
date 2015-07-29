@@ -1,0 +1,20 @@
+ SELECT Users.Name , Files.Name 
+    FROM Users 
+    RIGHT OUTER JOIN
+    ( SELECT Files.Name 
+      FROM Files 
+      INNER JOIN
+          ( SELECT TOP 1 Files.UserID ,Max(LastDownloadTime ) as LastDownloadTime 
+                    FROM Files 
+                    ORDER BY LastDownloadTime DESC,Files.UserID  ) as f2
+  ON Files.UserID  = f2.UserID  AND Files.LastDownloadTime  = f2.LastDownloadTime 
+   ) as f  ON Users.ID = f.UserID
+
+
+Select 
+    Users.Name 
+    ,f2.Name 
+FROM 
+    Users  
+        JOIN (SELECT userid, MAX(lastdownloadtime) AS latest FROM Files GROUP BY userid) f1 ON f1.userid = Users.id
+        JOIN Files f2 ON (Users.ID = f2.userid AND f2.lastdownloadtime = f1.latest);

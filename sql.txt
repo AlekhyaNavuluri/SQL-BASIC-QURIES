@@ -1,0 +1,101 @@
+1. SELECT pub_name,country,pub_city,estd   
+  FROM publisher          
+  WHERE MONTH(estd) BETWEEN '02' and '08';  
+2. SELECT pub_name,country,pub_city,estd  
+ FROM publisher  
+ WHERE YEAR(estd) BETWEEN 1968 AND 1975;
+3. SELECT pub_name,country,pub_city,estd  
+FROM publisher            
+WHERE MONTH(estd) BETWEEN '05' AND '09'   
+AND YEAR(estd) BETWEEN 1950 AND 1975;   
+4.SELECT pub_name,country,pub_city,estd  
+   FROM publisher   
+   WHERE estd BETWEEN '1950-01-01' AND '1975-12-31';
+5. SELECT pub_NAME,COALESCE(estd,country,pub_city)  
+FROM newpublisher;
+6.SELECT COALESCE(NULL, 'Red', 'Green');
+7. SELECT INTERVAL(85, 1, 75, 17, 30,56, 175);  
+
+8.CASE value WHEN [compare_value] THEN result 
+[WHEN [compare_value] THEN result ...] 
+[ELSE result] 
+END
+
+9.CASE WHEN [condition] THEN result 
+[WHEN [condition] 
+THEN result ...] 
+[ELSE result] 
+END
+
+10.SELECT CASE  WHEN 2< 3 THEN 'this is true'  
+   ELSE 'this is false' END;  
+
+11.SELECT CASE 1 WHEN 1 THEN 'this is case one'  
+WHEN 2 THEN 'this is case two'   
+ELSE 'this is not in the case'  
+END as 'how to execute case statement';  
+
+12. SELECT book_name,isbn_no,  
+IF((SELECT COUNT(*) FROM book_mast WHERE pub_lang='English')>  
+(SELECT COUNT(*) FROM book_mast WHERE pub_lang<>'English'),  
+(CONCAT("Pages: ",no_page)),(CONCAT("Price: ",book_price)))   
+AS "Page / Price"  
+FROM book_mast;  
+
+13.SELECT book_name,  
+IF(pub_lang='English',"English Book","Other Language")   
+AS Language   
+FROM book_mast;  
+
+14.SELECT IF((SELECT CASE WHEN 1>0 THEN 'true' ELSE 'false' END),'true','false'); 
+
+15.IFNULL(expression1, expression2);
+
+16.SELECT IFNULL(NULL,2);  
+
+17.SELECT NULLIF(2,2);
+In the following MySQL statement since expressions are equal, it returns NULL.
+
+18.SELECT NULLIF(2,3); 
+In the following MySQL statement since expressions are not equal, it returns the first expression, i.e. 2.
+
+19.TRIM([{BOTH | LEADING | TRAILING} [remstr] FROM ] str);
+20. SELECT pub_name, SUBSTRING(pub_name,5)   
+FROM publisher   
+WHERE country='USA';
+
+21.SELECT pub_name, SUBSTRING(pub_name,4,5)   
+FROM publisher   
+WHERE country='USA'; 
+
+22. SELECT pub_name, SUBSTRING(pub_name FROM 5)   
+FROM publisher   
+WHERE country='USA';
+
+23.SELECT pub_name, SUBSTRING(pub_name ,-15,5)   
+FROM publisher   
+WHERE country='USA';  
+
+24. SELECT pub_name, SUBSTR(pub_name   
+FROM -15 FOR 5)   
+FROM publisher   
+WHERE country='USA';  
+
+25.SELECT STRCMP('mytesttext', 'mytesttext');  
+using the STRCMP() function, two strings are compared, and since it is found that the strings are same, it returns 0.
+mysql> SELECT STRCMP('mytesttext', 'mytesttext');
++------------------------------------+
+| STRCMP('mytesttext', 'mytesttext') |
++------------------------------------+
+|                                  0 | 
+
+26.SELECT STRCMP('mytesttext', 'mytest_text');
+mysql> SELECT STRCMP('mytesttext', 'mytest_text');
++-------------------------------------+
+| STRCMP('mytesttext', 'mytest_text') |
++-------------------------------------+
+|                                  -1 | 
+
+
+
+  
